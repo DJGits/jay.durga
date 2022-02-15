@@ -1,33 +1,71 @@
 <html>
 <head>
+	
+	<style>
 
-<style>
-           *{
-                margin: 0;
-                padding: 0;
-            }
-            
-            body {background: black;}
-            canvas {display:block;}
+	   *{
+			margin: 0;
+			padding: 0;
+		}
+		
+		body {background: black;}
+		canvas {display:block;}
+
+		div#container {height:500px;width:500px;}
+
+		div.a {
+			width: 360px;
+			height:360px;			
+			background-image: url('profile.png');
+			position:fixed;
+			top:100px;
+			left:100px;
+		}
+
 	</style>
 
-        <!--<link rel="stylesheet" href="/jay.durga/css/bootstrap.min.css">-->
-        <!--<link rel="stylesheet" href="./css/font-awesome.min.css">-->
-	<link rel="stylesheet" href="/jay.durga/css/dusign-light.css">
+    <!--<link rel="stylesheet" href="/jay.durga/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="./css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="/jay.durga/css/dusign-light.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
+</head>
+<body>
       
-        <canvas id="c"></canvas>
+    <canvas id="c"></canvas>
       
 
-        <div>
+    <div>
         <!--<img align="center" alt="ᒍᗩY ᕲᑌᖇGᗩ" src="https://github.com/DJGits/DJGits/raw/main/images/background.gif" width="875" height="218" /> -->
   
         <p  style="color:#0073ad;text-align:center;font-size:500%"><b>   ᒍᗩY ᕲᑌᖇGᗩ </b></p>
 
-      </div>
+    </div>
+	
+	                    <div style="text-align:center;">
+                        
+                            <span class="fa-stack fa-lg">
+								<a target="_blank"  href="https://github.com/DJGits">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-github fa-stack-1x fa-inverse"></i>
+								</a>	
+                            </span>
+                        
+						
+                            <span class="fa-stack fa-lg">
+								<a target="_blank" href="https://www.linkedin.com/in/jay-durga">
+									<i class="fa fa-circle fa-stack-2x"></i>
+									<i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+								</a>	
+                            </span>
+
+                    </div>
+	  
+	<div id="container">
+		<div class='a'></div>
+	</div>
 
 <script id="rendered-js">
           // geting canvas by Boujjou Achraf
@@ -40,7 +78,7 @@
 
         //chinese characters - taken from the unicode charset
         //var matrix = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-		var matrix = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+		var matrix = "abcdefghiアァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジjklmnopqrstuvwxyzヂビピウゥクスツヌフムユュルグズブヅプエェケABCDEFGHIJKLMNOセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
         //converting the string into an array of single characters
         matrix = matrix.split("");
 
@@ -84,30 +122,54 @@
         setInterval(draw, 35);
  
         
+        $(document).ready(function() {
+			animateDiv($('.a'));
+		});
 
+function makeNewPosition($container) {
+
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $container.height() - 10;
+    var w = $container.width() - 10;
+
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+
+    return [nh, nw];
+
+}
+
+function animateDiv($target) {
+    var newq = makeNewPosition($target.parent());
+    var oldq = $target.offset();
+    var speed = calcSpeed([oldq.top, oldq.left], newq);
+
+    $target.animate({
+        top: newq[0],
+        left: newq[1]
+    }, speed, function() {
+        animateDiv($target);
+    });
+
+};
+
+function calcSpeed(prev, next) {
+
+    var x = Math.abs(prev[1] - next[1]);
+    var y = Math.abs(prev[0] - next[0]);
+
+    var greatest = x > y ? x : y;
+
+    var speedModifier = 0.03;
+
+    var speed = Math.ceil(greatest / speedModifier);
+
+    return speed;
+
+}
+
+		
         </script>
-
-
-                    <div style="text-align:center;">
-                        
-                            <span class="fa-stack fa-lg">
-								<a target="_blank"  href="https://github.com/DJGits">
-									<i class="fa fa-circle fa-stack-2x"></i>
-									<i class="fa fa-github fa-stack-1x fa-inverse"></i>
-								</a>	
-                            </span>
-                        
-						
-                            <span class="fa-stack fa-lg">
-								<a target="_blank" href="https://www.linkedin.com/in/jay-durga">
-									<i class="fa fa-circle fa-stack-2x"></i>
-									<i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
-								</a>	
-                            </span>
-
-                    </div>
-                
-                
 
 
     </body>
